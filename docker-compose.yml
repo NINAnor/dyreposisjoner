@@ -15,3 +15,5 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - data:/var/lib/postgresql/data
+volumes:
+  data:
