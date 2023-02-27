@@ -16,6 +16,8 @@ Build the custom Postgres image:
 docker compose build
 ```
 
+Add `./` in front of the `data` volume in `docker-compose.yml`to store the database files in a folder instead of a volume.
+
 # Run
 
 ```bash
