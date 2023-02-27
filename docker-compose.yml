@@ -10,6 +10,7 @@ services:
     ports:
       - 3000:3000
   postgres:
+    image: ghcr.io/ninanor/followit-live-data-feed-server:main
     build: postgres
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
