@@ -57,7 +57,7 @@ curl http://localhost:3000/feed \
 The `consumer` role can delete the data as well:
 
 ```bash
-curl "http://localhost:3000/feed?id=lte.$ID" -X DELETE \
+curl "http://localhost:3000/feed?positionId=lte.$ID" -X DELETE \
  -H "Authorization: Bearer $CONSUMER_TOKEN" \
  -H "Content-Type: application/json"
 ```
