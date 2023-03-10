@@ -1,22 +1,22 @@
 begin;
 create table feed (
-    lat varchar,
-    lng varchar,
-    "date" varchar,
-    ttf varchar,
-    sats varchar,
+    lat numeric(8, 6) not null,
+    lng numeric(9, 6) not null,
+    "date" timestamp with time zone not null,
+    ttf smallint,
+    sats smallint,
     "actX" varchar,
     "actY" varchar,
     "actZ" varchar,
-    "collarId" varchar,
+    "collarId" integer not null,
     "positionId" integer primary key,
-    "serialId" varchar,
+    "serialId" varchar not null,
     alt varchar,
     "N2d3d" varchar,
-    hdop varchar,
+    hdop real,
     temp varchar,
     name varchar,
-    power varchar
+    power real
 );
 
 create role followit nologin;
