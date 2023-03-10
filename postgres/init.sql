@@ -12,7 +12,7 @@ create table feed (
     "positionId" integer primary key,
     "serialId" varchar,
     alt varchar,
-    "N3d3d" varchar,
+    "N2d3d" varchar,
     hdop varchar,
     temp varchar,
     name varchar,
