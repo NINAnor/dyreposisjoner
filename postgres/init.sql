@@ -18,6 +18,33 @@ create table feed (
     name varchar,
     power real
 );
+create or replace function feed_null_if_empty() returns trigger language plpgsql
+as $$
+begin
+    new.lat := nullif(old.lat::varchar, '');
+    new.lng := nullif(old.lng::varchar, '');
+    new."date" := nullif(old."date"::varchar, '');
+    new.ttf := nullif(old.ttf::varchar, '');
+    new.sats := nullif(old.sats::varchar, '');
+    new."actX" := nullif(old."actX"::varchar, '');
+    new."actY" := nullif(old."actY"::varchar, '');
+    new."actZ" := nullif(old."actZ"::varchar, '');
+    new."collarId" := nullif(old."collarId"::varchar, '');
+    new."positionId" := nullif(old."positionId"::varchar, '');
+    new."serialId" := nullif(old."serialId"::varchar, '');
+    new.alt := nullif(old.alt::varchar, '');
+    new."N2d3d" := nullif(old."N2d3d"::varchar, '');
+    new.hdop := nullif(old.hdop::varchar, '');
+    new.temp := nullif(old.temp::varchar, '');
+    new.name := nullif(old.name::varchar, '');
+    new.power := nullif(old.power::varchar, '');
+    return new;
+end;
+$$;
+create or replace trigger feed_null_if_empty
+    before insert or update on feed
+    for each row
+    execute procedure feed_null_if_empty();
 
 create role followit nologin;
 grant insert on feed to followit;
