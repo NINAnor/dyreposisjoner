@@ -24,7 +24,18 @@ Add `./` in front of the `data` volume in `docker-compose.yml`to store the datab
 docker compose up
 ```
 
-# Usage
+# Generate JWT tokens
+
+## Using jwt-cli
+
+`jwt-cli` can be installed with `cargo install jwt-cli`.
+
+```bash
+export FOLLOWIT_TOKEN=$(. .env; jwt encode --secret "$JWT_SECRET" '{"role": "followit"}')
+export CONSUMER_TOKEN=$(. .env; jwt encode --secret "$JWT_SECRET" '{"role": "consumer"}')
+```
+
+## Using jwt.io
 
 Generate a JWT for the both the users using https://jwt.io/#debugger-io:
 1. Set the value of `JWT_SECRET` as secret
@@ -32,6 +43,8 @@ Generate a JWT for the both the users using https://jwt.io/#debugger-io:
 3. Copy the encoded token
 
 The same applies for the `consumer` role.
+
+# Usage
 
 ## Followit role
 
