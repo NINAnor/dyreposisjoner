@@ -51,7 +51,7 @@ The same applies for the `consumer` role.
 The `followit` role can add new data encoded as JSON:
 
 ```bash
-curl http://localhost:3000/feed -X POST \
+curl http://localhost:3000/feed_input -X POST \
  -H "Authorization: Bearer $FOLLOWIT_TOKEN" \
  -H "Content-Type: application/json" \
  -d '$DATA'

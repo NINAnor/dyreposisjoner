@@ -1,4 +1,23 @@
 begin;
+create table feed_input (
+    lat varchar,
+    lng varchar,
+    "date" varchar,
+    ttf varchar,
+    sats varchar,
+    "actX" varchar,
+    "actY" varchar,
+    "actZ" varchar,
+    "collarId" varchar,
+    "positionId" varchar,
+    "serialId" varchar,
+    alt varchar,
+    "N2d3d" varchar,
+    hdop varchar,
+    temp varchar,
+    name varchar,
+    power varchar
+);
 create table feed (
     lat numeric(8, 6) not null,
     lng numeric(9, 6) not null,
@@ -18,36 +37,38 @@ create table feed (
     name varchar,
     power real
 );
-create or replace function feed_null_if_empty() returns trigger language plpgsql
+create or replace function feed_input() returns trigger language plpgsql
 as $$
 begin
-    new.lat := nullif(old.lat::varchar, '');
-    new.lng := nullif(old.lng::varchar, '');
-    new."date" := nullif(old."date"::varchar, '');
-    new.ttf := nullif(old.ttf::varchar, '');
-    new.sats := nullif(old.sats::varchar, '');
-    new."actX" := nullif(old."actX"::varchar, '');
-    new."actY" := nullif(old."actY"::varchar, '');
-    new."actZ" := nullif(old."actZ"::varchar, '');
-    new."collarId" := nullif(old."collarId"::varchar, '');
-    new."positionId" := nullif(old."positionId"::varchar, '');
-    new."serialId" := nullif(old."serialId"::varchar, '');
-    new.alt := nullif(old.alt::varchar, '');
-    new."N2d3d" := nullif(old."N2d3d"::varchar, '');
-    new.hdop := nullif(old.hdop::varchar, '');
-    new.temp := nullif(old.temp::varchar, '');
-    new.name := nullif(old.name::varchar, '');
-    new.power := nullif(old.power::varchar, '');
-    return new;
+    insert into feed values (
+        nullif(new.lat, '')::numeric(8, 6),
+        nullif(new.lng, '')::numeric(8, 6),
+        nullif(new."date", '')::timestamp with time zone,
+        nullif(new.ttf, '')::smallint,
+        nullif(new.sats, '')::smallint,
+        nullif(new."actX", ''),
+        nullif(new."actY", ''),
+        nullif(new."actZ", ''),
+        nullif(new."collarId", '')::integer,
+        nullif(new."positionId", '')::integer,
+        nullif(new."serialId", ''),
+        nullif(new.alt, ''),
+        nullif(new."N2d3d", ''),
+        nullif(new.hdop, '')::real,
+        nullif(new.temp, ''),
+        nullif(new.name, ''),
+        nullif(new.power, '')::real
+    );
+    return null;
 end;
 $$;
-create or replace trigger feed_null_if_empty
-    before insert or update on feed
+create or replace trigger feed_input
+    before insert on feed_input
     for each row
-    execute procedure feed_null_if_empty();
+    execute procedure feed_input();
 
 create role followit nologin;
-grant insert on feed to followit;
+grant insert on feed, feed_input to followit;
 
 create role consumer nologin;
 grant select, delete on feed to consumer;
