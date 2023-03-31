@@ -1,22 +1,13 @@
-# Setup
+# Configuration
 
-Copy the `env.sample` file to `.env` and set the password.
-`JWT_SECRET` should be 24 characters minimum
+## Secrets
 
-The passwords can be generated automatically using this snippet:
+Generate passwords and tokens randomly:
+
 ```bash
-cat << EOF > .env
-POSTGRES_PASSWORD="$(< /dev/urandom LC_CTYPE=C tr -dc A-Za-z0-9 | head -c32)"
-JWT_SECRET="$(< /dev/urandom LC_CTYPE=C tr -dc A-Za-z0-9 | head -c32)"
-EOF
+docker compose --file setup/docker-compose.yml build
+docker compose --file setup/docker-compose.yml run --rm setup
 ```
-
-Build the custom dbmate image:
-```bash
-docker compose build
-```
-
-Add `./` in front of the `data` volume in `docker-compose.yml`to store the database files in a folder instead of a volume.
 
 ## Migrate from old versions
 
@@ -29,28 +20,8 @@ insert into schema_migrations (version) values ('20230331130126');
 # Run
 
 ```bash
-docker compose up
+docker compose --env-file secrets/docker up --build
 ```
-
-# Generate JWT tokens
-
-## Using jwt-cli
-
-`jwt-cli` can be installed with `cargo install jwt-cli`.
-
-```bash
-export FOLLOWIT_TOKEN=$(. .env; jwt encode --secret "$JWT_SECRET" '{"role": "followit"}')
-export CONSUMER_TOKEN=$(. .env; jwt encode --secret "$JWT_SECRET" '{"role": "consumer"}')
-```
-
-## Using jwt.io
-
-Generate a JWT for the both the users using https://jwt.io/#debugger-io:
-1. Set the value of `JWT_SECRET` as secret
-2. Set payload to `{"role": "followit"}`
-3. Copy the encoded token
-
-The same applies for the `consumer` role.
 
 # Usage
 
@@ -70,6 +41,7 @@ curl http://localhost:3000/feed_input -X POST \
 The `consumer` role can read the data:
 
 ```bash
+source secrets/tokens
 curl http://localhost:3000/feed \
  -H "Authorization: Bearer $CONSUMER_TOKEN" \
  -H "Content-Type: application/json"
@@ -78,6 +50,7 @@ curl http://localhost:3000/feed \
 The `consumer` role can delete the data as well:
 
 ```bash
+source secrets/tokens
 curl "http://localhost:3000/feed?positionId=lte.$ID" -X DELETE \
  -H "Authorization: Bearer $CONSUMER_TOKEN" \
  -H "Content-Type: application/json"
