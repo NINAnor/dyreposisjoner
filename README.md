@@ -11,12 +11,20 @@ JWT_SECRET="$(< /dev/urandom LC_CTYPE=C tr -dc A-Za-z0-9 | head -c32)"
 EOF
 ```
 
-Build the custom Postgres image:
+Build the custom dbmate image:
 ```bash
 docker compose build
 ```
 
 Add `./` in front of the `data` volume in `docker-compose.yml`to store the database files in a folder instead of a volume.
+
+## Migrate from old versions
+
+If the database has not been initialized with dbmate, run this SQL statement:
+
+```sql
+insert into schema_migrations (version) values ('20230331130126');
+```
 
 # Run
 

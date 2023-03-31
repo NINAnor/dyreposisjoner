@@ -1,4 +1,5 @@
-begin;
+-- migrate:up
+
 create table feed_input (
     lat varchar,
     lng varchar,
@@ -72,4 +73,6 @@ grant insert on feed, feed_input to followit;
 
 create role consumer nologin;
 grant select, delete on feed to consumer;
-commit;
+
+-- migrate:down
+

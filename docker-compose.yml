@@ -8,9 +8,13 @@ services:
       - postgres
     ports:
       - 3000:3000
+  dbmate:
+    build: db
+    command: --wait --no-dump-schema up
+    environment:
+      DATABASE_URL: "postgres://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres?sslmode=disable"
   postgres:
-    image: ghcr.io/ninanor/followit-live-data-feed-server:main
-    build: postgres
+    image: postgres:15
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
