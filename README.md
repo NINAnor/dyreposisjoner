@@ -14,6 +14,7 @@ docker compose --file setup/docker-compose.yml run --rm setup
 If the database has not been initialized with dbmate, run this SQL statement:
 
 ```sql
+create table if not exists schema_migrations (version varchar(128) primary key);
 insert into schema_migrations (version) values ('20230331130126');
 ```
 
