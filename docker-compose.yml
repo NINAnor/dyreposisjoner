@@ -4,6 +4,7 @@ services:
     environment:
       PGRST_DB_URI: "postgres://postgres:${POSTGRES_PASSWORD}@postgres/postgres"
       PGRST_JWT_SECRET: ${JWT_SECRET}
+      PGRST_DB_SCHEMAS: "followit"
     depends_on:
       - postgres
     ports:
@@ -19,5 +20,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
 volumes:
   data:

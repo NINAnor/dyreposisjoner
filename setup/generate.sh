@@ -22,7 +22,7 @@ source "$DESTINATION/docker"
 >&2 echo "Regenerating tokens..."
 cat << EOF > "$DESTINATION/tokens"
 FOLLOWIT_TOKEN="$(jwt encode --secret "$JWT_SECRET" '{"role": "followit"}')"
-CONSUMER_TOKEN="$(jwt encode --secret "$JWT_SECRET" '{"role": "consumer"}')"
+FOLLOWITCONSUMER_TOKEN="$(jwt encode --secret "$JWT_SECRET" '{"role": "followit_consumer"}')"
 EOF
 
 >&2 echo "Setup completed."

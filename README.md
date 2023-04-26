@@ -37,23 +37,23 @@ curl http://localhost:3000/feed_input -X POST \
  -d '$DATA'
 ```
 
-## Consumer
+## Followit consumer
 
-The `consumer` role can read the data:
+The `followit_consumer` role can read the data:
 
 ```bash
 source secrets/tokens
 curl http://localhost:3000/feed \
- -H "Authorization: Bearer $CONSUMER_TOKEN" \
+ -H "Authorization: Bearer $FOLLOWITCONSUMER_TOKEN" \
  -H "Content-Type: application/json"
 ```
 
-The `consumer` role can delete the data as well:
+The `followit_consumer` role can delete the data as well:
 
 ```bash
 source secrets/tokens
 curl "http://localhost:3000/feed?positionId=lte.$ID" -X DELETE \
- -H "Authorization: Bearer $CONSUMER_TOKEN" \
+ -H "Authorization: Bearer $FOLLOWITCONSUMER_TOKEN" \
  -H "Content-Type: application/json"
 ```
 
