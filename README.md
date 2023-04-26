@@ -59,3 +59,13 @@ curl "http://localhost:3000/feed?positionId=lte.$ID" -X DELETE \
 
 `$ID` is the value of the latest row that has been read before.
 It is highly suggested to always delete rows using such a filter, to avoid discading data that have been added between the read and the delete operations.
+
+# Test
+
+```
+source secrets/tokens
+curl http://localhost:3000/feed_input -X POST \
+ -H "Authorization: Bearer $FOLLOWIT_TOKEN" \
+ -H "Content-Type: application/json" \
+ -d '{"positionId": 1234, "lat": "12.12", "lng": "13.13", "ttf": "1", "date": "2023-03-03T12:00:00+00:00", "collarId": "123", "serialId": "456"}'
+```
