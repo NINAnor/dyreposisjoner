@@ -23,6 +23,8 @@ source "$DESTINATION/docker"
 cat << EOF > "$DESTINATION/tokens"
 FOLLOWIT_TOKEN="$(jwt encode --secret "$JWT_SECRET" '{"role": "followit"}')"
 FOLLOWITCONSUMER_TOKEN="$(jwt encode --secret "$JWT_SECRET" '{"role": "followit_consumer"}')"
+TELESPOR_TOKEN="$(jwt encode --secret "$JWT_SECRET" '{"role": "telespor"}')"
+TELESPORCONSUMER_TOKEN="$(jwt encode --secret "$JWT_SECRET" '{"role": "telespor_consumer"}')"
 EOF
 
 >&2 echo "Setup completed."

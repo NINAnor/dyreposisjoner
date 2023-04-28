@@ -4,7 +4,7 @@ services:
     environment:
       PGRST_DB_URI: "postgres://postgres:${POSTGRES_PASSWORD}@postgres/postgres"
       PGRST_JWT_SECRET: ${JWT_SECRET}
-      PGRST_DB_SCHEMAS: "followit"
+      PGRST_DB_SCHEMAS: "followit, telespor"
     depends_on:
       - postgres
     ports:
@@ -15,7 +15,7 @@ services:
     environment:
       DATABASE_URL: "postgres://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres?sslmode=disable"
   postgres:
-    image: postgres:15
+    image: postgis/postgis:15-3.3
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
