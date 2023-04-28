@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eEuxo pipefail
+set -eEuo pipefail
 
 function generate_password() {
     shuf -er -n32  {A..Z} {a..z} {0..9} | tr -d '\n'
