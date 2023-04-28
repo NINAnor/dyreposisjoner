@@ -1,6 +1,6 @@
 services:
   postgrest:
-    image: postgrest/postgrest:v10.1.2
+    image: postgrest/postgrest:v11.0.1
     environment:
       PGRST_DB_URI: "postgres://postgres:${POSTGRES_PASSWORD}@postgres/postgres"
       PGRST_JWT_SECRET: ${JWT_SECRET}
