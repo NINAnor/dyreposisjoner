@@ -31,10 +31,11 @@ docker compose --env-file secrets/docker up --build
 The `followit` role can add new data encoded as JSON:
 
 ```bash
+source secrets/tokens
 curl http://localhost:3000/feed_input -X POST \
  -H "Authorization: Bearer $FOLLOWIT_TOKEN" \
  -H "Content-Type: application/json" \
- -d '$DATA'
+ -d "$DATA"
 ```
 
 ## Followit consumer
